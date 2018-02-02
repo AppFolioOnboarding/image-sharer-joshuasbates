@@ -1,0 +1,12 @@
+<p id="notice">Image</p>
+
+<p>
+  <strong>URL:</strong>
+  <div id="image_url"><%= @image.imageurl %></div>
+</p>
+
+<p>
+  <div id="image_tag"><%= image_tag @image.imageurl %></div>
+</p>
+
+<%= link_to 'Back', images_path %>
