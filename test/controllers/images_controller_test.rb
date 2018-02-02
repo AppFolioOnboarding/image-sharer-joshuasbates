@@ -8,13 +8,13 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   def test_should_get_index
     get images_path
     assert_response :ok
-    assert_select 'h1', 'Listing Image URLs'
+    assert_select 'h1', 'Welcome!'
   end
 
   def test_should_get_new
     get new_image_path
     assert_response :ok
-    assert_select 'h1', 'New Image URL'
+    assert_select 'h1', 'New Image'
   end
 
   def test_should_create_employee

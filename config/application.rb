@@ -21,7 +21,7 @@ module Base
       'font-src https://cdn.jsdelivr.net',
       "img-src 'self' http: https:",
       "script-src 'self' https://cdnjs.cloudflare.com https://code.jquery.com https://maxcdn.bootstrapcdn.com",
-      "style-src 'self' https://maxcdn.bootstrapcdn.com"
+      "style-src 'self' 'unsafe-inline' https://maxcdn.bootstrapcdn.com"
     ]
     config.action_dispatch.default_headers = {
       'Content-Security-Policy' => csp_settings.join(';')
