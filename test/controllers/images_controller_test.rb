@@ -27,6 +27,13 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_index_should_not_have_entries_if_no_images
+    Image.destroy_all
+    get images_path
+    assert_response :ok
+    assert_select 'table.image_table tr', count: 0
+  end
+
   def test_should_get_new
     get new_image_path
     assert_response :ok
