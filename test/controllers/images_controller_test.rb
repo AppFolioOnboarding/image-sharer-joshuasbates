@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class ImagesControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @testimage = Image.create!(imageurl: 'http://abc.png')
-  end
-
   def test_should_get_index
     get images_path
     assert_response :ok
@@ -13,7 +9,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_should_order_index_by_created_at
     images = [
-      @testimage,
+      Image.create!(imageurl: 'http://abc.png', created_at: Time.zone.now),
       Image.create!(imageurl: 'http://ghi.jpg', created_at: Time.zone.now - 1.day),
       Image.create!(imageurl: 'http://def.jpg', created_at: Time.zone.now - 2.days)
     ]
@@ -28,7 +24,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_index_should_not_have_entries_if_no_images
-    Image.destroy_all
     get images_path
     assert_response :ok
     assert_select 'table.image_table tr', count: 0
@@ -41,8 +36,9 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_should_create_employee
+    testimage = Image.create!(imageurl: 'http://abc.png')
     assert_difference('Image.count') do
-      image_params = { imageurl: @testimage.imageurl }
+      image_params = { imageurl: testimage.imageurl }
       post images_path, params: { image: image_params }
     end
     assert_redirected_to image_path(Image.last)
@@ -62,7 +58,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_should_show_image
-    get image_path(id: @testimage.id)
+    testimage = Image.create!(imageurl: 'http://abc.png')
+    get image_path(id: testimage.id)
     assert_response :ok
     assert_select('#image_url', 'http://abc.png')
   end
