@@ -2,12 +2,8 @@
 
 <%= link_to 'New image', new_image_path %>
 
-<table>
-  <tr>
-    <th>Images</th>
-  </tr>
-
-  <% @images.reverse_each do |image| %>
+<table class="image_table">
+  <% @images.each do |image| %>
       <tr>
         <td><%= image_tag image.imageurl, style: 'max-width: 400px;' %></td>
       </tr>

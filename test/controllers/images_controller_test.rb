@@ -11,6 +11,22 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h1', 'Welcome!'
   end
 
+  def test_should_order_index_by_created_at
+    images = [
+      @testimage,
+      Image.create!(imageurl: 'http://ghi.jpg', created_at: Time.zone.now - 1.day),
+      Image.create!(imageurl: 'http://def.jpg', created_at: Time.zone.now - 2.days)
+    ]
+
+    get images_path
+    assert_response :ok
+    assert_select('table.image_table tr') do |image_rows|
+      image_rows.each_with_index do |image_row, index|
+        assert_select image_row, "img[src=\"#{images[index].imageurl}\"]", count: 1
+      end
+    end
+  end
+
   def test_should_get_new
     get new_image_path
     assert_response :ok
