@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag "image" %>
+
 <h1>Welcome!</h1>
 
 <%= link_to 'New image', new_image_path %>
@@ -5,7 +7,7 @@
 <table class="image_table">
   <% @images.each do |image| %>
       <tr>
-        <td><%= image_tag image.imageurl, style: 'max-width: 400px;' %></td>
+        <td><%= image_tag image.imageurl, class: "index_image" %></td>
       </tr>
   <% end %>
 </table>
