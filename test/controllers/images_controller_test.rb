@@ -4,7 +4,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   def test_should_get_index
     get images_path
     assert_response :ok
-    assert_select 'h1', 'Welcome!'
   end
 
   def test_should_order_index_by_created_at
@@ -16,9 +15,11 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     get images_path
     assert_response :ok
-    assert_select('table.image_table tr') do |image_rows|
-      image_rows.each_with_index do |image_row, index|
-        assert_select image_row, "img[src=\"#{images[index].imageurl}\"]", count: 1
+    assert_select '.album', count: 1 do
+      assert_select '.card', count: 3 do |cards|
+        cards.each_with_index do |card, index|
+          assert_select card, "img[src=\"#{images[index].imageurl}\"]", count: 1
+        end
       end
     end
   end

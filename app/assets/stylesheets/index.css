@@ -5,3 +5,16 @@
 .bg-inverse {
   background-color: #292b2c;
 }
+
+.card {
+  float: left;
+  width: 33.333%;
+  height: 400px;
+  padding: .75rem;
+  border: 0;
+}
+
+.card > img {
+  max-width: 100%;
+  max-height: 100%;
+}

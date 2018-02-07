@@ -1,9 +1,9 @@
-<%= stylesheet_link_tag "image" %>
-
-<table class="image_table">
-  <% @images.each do |image| %>
-      <tr>
-        <td><%= image_tag image.imageurl, class: "index_image" %></td>
-      </tr>
-  <% end %>
-</table>
+<div class = "album text-muted">
+  <div class = "container">
+    <% @images.each do |image| %>
+      <div class="card">
+        <%= image_tag image.imageurl, class: "mx-auto my-auto" %>
+      </div>
+    <% end %>
+  </div>
+</div>
