@@ -52,9 +52,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :ok
-    assert_select('#error_explanation ul li', 'Imageurl is invalid')
-    assert_select 'ul' do
-      assert_select 'li', 1
+    assert_select '#new_image' do
+      assert_select '.help-block', 'is invalid'
     end
   end
 
@@ -62,6 +61,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     testimage = Image.create!(imageurl: 'http://abc.png')
     get image_path(id: testimage.id)
     assert_response :ok
-    assert_select('#image_url', 'http://abc.png')
+    assert_select '#image_url', 'http://abc.png'
   end
 end
