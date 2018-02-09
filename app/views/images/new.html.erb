@@ -1,6 +1,4 @@
 <div class = "container">
-  <h1>New Image</h1>
-
   <%= simple_form_for @image do |f| %>
     <%= f.input :imageurl, as: :url, label: "Image URL" %>
     <%= f.button :submit, "Save Image", class: "btn-primary" %>

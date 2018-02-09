@@ -11,19 +11,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-dark bg-inverse">
+    <nav class="navbar navbar-toggleable-xl navbar-inverse bg-inverse">
       <div class="navbar-nav">
-        <div class="container d-flex">
-          <a class="navbar-brand" href="/">Image Sharer</a>
-          <a class="nav-item nav-link" href="/images/new">New</a>
+        <div class="container">
+          <ul class="navbar-nav mr-auto">
+            <a class="navbar-brand" href="<%= root_path %>">Image Sharer</a>
+            <li class="nav-item">
+              <%= link_to "Index", root_path, :class => "nav-link #{current_page?(root_path) ? "active" : ""}" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "New", new_image_path, :class => "nav-link #{current_page?(new_image_path) ? "active" : ""}" %>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
-  </head>
-  <body>
     <%= yield %>
 
     <!-- Optional JavaScript -->

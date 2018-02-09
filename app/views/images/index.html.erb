@@ -1,9 +1,11 @@
 <div class = "album text-muted">
   <div class = "container">
-    <% @images.each do |image| %>
-      <div class="card">
-        <%= image_tag image.imageurl, class: "mx-auto my-auto" %>
-      </div>
-    <% end %>
+    <div class="row">
+      <% @images.each do |image| %>
+        <div class="card">
+          <%= image_tag image.imageurl, class: "mx-auto my-auto" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
