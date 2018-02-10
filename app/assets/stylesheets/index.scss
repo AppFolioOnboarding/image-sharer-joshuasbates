@@ -1,35 +1,37 @@
-
 $footer-bg-color: #f5f5f5;
-$navbar-bg-color: #292b2c;
+$footer-height: 40px;
+$padding-height: 5px;
 
-.bg-inverse {
-  background-color: $navbar-bg-color;
+.album {
+  padding-bottom: $footer-height + $padding-height;
 }
 
 .card {
+  $card-dim: 20rem;
+  $img-max-dim: 100%;
+
   border: 0;
-  float: left;
-  height: 20rem;
+  height: $card-dim;
+  margin: 5px;
   padding: .5rem;
-  width: 20rem;
-}
+  width: $card-dim;
 
-.card {
   img {
-    max-height: 100%;
-    max-width: 100%;
+    max-height: $img-max-dim;
+    max-width: $img-max-dim;
   }
 }
 
 .footer {
   background-color: $footer-bg-color;
   bottom: 0;
-  height: 50px;
-  line-height: 50px;
+  font-size: small;
+  height: $footer-height;
+  line-height: $footer-height;
   position: fixed;
   width: 100%;
 }
 
 .navbar {
-  margin-bottom: 20px;
+  margin-bottom: $padding-height;
 }

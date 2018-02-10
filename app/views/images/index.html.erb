@@ -1,10 +1,12 @@
-<div class = "album text-muted">
-  <div class = "container">
-    <div class="row">
+<div class="album">
+  <div class="container-fluid">
+    <div class="row align-items-center">
       <% @images.each do |image| %>
-        <div class="card">
-          <%= image_tag image.imageurl, class: "mx-auto my-auto" %>
-        </div>
+        <a href=<%= "#{images_path}/#{image.id}" %>>
+          <div class="card">
+            <%= image_tag image.imageurl, class: "card-img mx-auto my-auto" %>
+          </div>
+        </a>
       <% end %>
     </div>
   </div>

@@ -60,6 +60,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     testimage = Image.create!(imageurl: 'http://abc.png')
     get image_path(id: testimage.id)
     assert_response :ok
-    assert_select '#image_url', 'http://abc.png'
+    assert_select "img[src='http://abc.png']", count: 1
   end
 end
