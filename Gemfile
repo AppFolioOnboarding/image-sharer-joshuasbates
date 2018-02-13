@@ -17,6 +17,7 @@ gem 'jquery-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'acts-as-taggable-on', '~> 5.0'
 gem 'webpacker', '~> 3.0'
 
 gem 'simple_form', '~> 3.1'
