@@ -1,13 +1,9 @@
-<div class="album">
-  <div class="container-fluid">
-    <div class="row align-items-center">
-      <% @images.each do |image| %>
-        <a href=<%= "#{images_path}/#{image.id}" %>>
-          <div class="card">
-            <%= image_tag image.imageurl, class: "card-img mx-auto my-auto" %>
-          </div>
-        </a>
-      <% end %>
-    </div>
+<div class="container-fluid album">
+  <div class="row justify-content-center">
+    <% @images.each do |image| %>
+      <div class="card">
+        <%= link_to image_tag(image.imageurl, class: "card-img"), image_path(image) %>
+      </div>
+    <% end %>
   </div>
 </div>
