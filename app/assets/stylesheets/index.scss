@@ -1,0 +1,40 @@
+$footer-bg-color: #f5f5f5;
+$footer-height: 2rem;
+$padding-height: .5rem;
+
+.album {
+  padding-bottom: $footer-height + $padding-height;
+}
+
+.card {
+  border: 0;
+  height: 20rem;
+  line-height: 19rem;
+  margin: .5rem;
+  text-align: center;
+  width: 20rem;
+
+  a {
+    height: 100%;
+    width: 100%;
+  }
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}
+
+.footer {
+  background-color: $footer-bg-color;
+  bottom: 0;
+  font-size: small;
+  height: $footer-height;
+  line-height: $footer-height;
+  position: fixed;
+  width: 100%;
+}
+
+.navbar {
+  margin-bottom: $padding-height;
+}

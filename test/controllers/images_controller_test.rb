@@ -4,7 +4,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   def test_should_get_index
     get images_path
     assert_response :ok
-    assert_select 'h1', 'Welcome!'
   end
 
   def test_should_order_index_by_created_at
@@ -16,9 +15,11 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     get images_path
     assert_response :ok
-    assert_select('table.image_table tr') do |image_rows|
-      image_rows.each_with_index do |image_row, index|
-        assert_select image_row, "img[src=\"#{images[index].imageurl}\"]", count: 1
+    assert_select '.album', count: 1 do
+      assert_select '.card', count: 3 do |cards|
+        cards.each_with_index do |card, index|
+          assert_select card, "img[src=\"#{images[index].imageurl}\"]", count: 1
+        end
       end
     end
   end
@@ -32,7 +33,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   def test_should_get_new
     get new_image_path
     assert_response :ok
-    assert_select 'h1', 'New Image'
   end
 
   def test_should_create_employee
@@ -51,9 +51,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :ok
-    assert_select('#error_explanation ul li', 'Imageurl is invalid')
-    assert_select 'ul' do
-      assert_select 'li', 1
+    assert_select '#new_image' do
+      assert_select '.help-block', 'is invalid'
     end
   end
 
@@ -61,6 +60,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     testimage = Image.create!(imageurl: 'http://abc.png')
     get image_path(id: testimage.id)
     assert_response :ok
-    assert_select('#image_url', 'http://abc.png')
+    assert_select "img[src='http://abc.png']", count: 1
   end
 end

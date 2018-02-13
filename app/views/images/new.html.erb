@@ -1,31 +1,7 @@
-<h1>New Image</h1>
-
-<%= form_with scope: :image, url: images_path, local: true do |form| %>
-
-    <% if @image.errors.any? %>
-        <div id="error_explanation">
-          <h2>
-            <%= pluralize(@image.errors.count, "error") %> prohibited
-            this image URL from being saved:
-          </h2>
-          <ul>
-            <% @image.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-    <% end %>
-
-    <p>
-      <%= form.label :imageurl %><br>
-      <%= form.text_field :imageurl %>
-    </p>
-
-    <p>
-      <%= form.submit %>
-    </p>
-
-<% end %>
-
-<%= link_to 'Back', images_path %>
+<div class="container-fluid">
+  <%= simple_form_for @image do |f| %>
+    <%= f.input :imageurl, as: :url, label: "Image URL" %>
+    <%= f.button :submit, "Save Image", class: "btn-primary" %>
+  <% end %>
+</div>
 

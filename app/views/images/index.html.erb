@@ -1,13 +1,9 @@
-<%= stylesheet_link_tag "image" %>
-
-<h1>Welcome!</h1>
-
-<%= link_to 'New image', new_image_path %>
-
-<table class="image_table">
-  <% @images.each do |image| %>
-      <tr>
-        <td><%= image_tag image.imageurl, class: "index_image" %></td>
-      </tr>
-  <% end %>
-</table>
+<div class="container-fluid album">
+  <div class="row justify-content-center">
+    <% @images.each do |image| %>
+      <div class="card">
+        <%= link_to image_tag(image.imageurl, class: "card-img"), image_path(image) %>
+      </div>
+    <% end %>
+  </div>
+</div>
