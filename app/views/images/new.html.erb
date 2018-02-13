@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <%= simple_form_for @image do |f| %>
     <%= f.input :imageurl, as: :url, label: "Image URL" %>
+    <%= f.input :tag_list, as: :string, label: "Tags" %>
     <%= f.button :submit, "Save Image", class: "btn-primary" %>
   <% end %>
 </div>
-
