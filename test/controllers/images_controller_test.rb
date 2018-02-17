@@ -36,17 +36,22 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_should_create_employee
-    testimage = Image.create!(imageurl: 'http://abc.png')
+    expected_url = 'http://abc.png'
+    expected_tag_list = 'a, b, c'
     assert_difference('Image.count') do
-      image_params = { imageurl: testimage.imageurl }
+      image_params = { imageurl: expected_url, tag_list: expected_tag_list }
       post images_path, params: { image: image_params }
     end
-    assert_redirected_to image_path(Image.last)
+
+    last_image = Image.last
+    assert_redirected_to image_path(last_image)
+    assert_equal expected_url, last_image.imageurl
+    assert_equal expected_tag_list, last_image.tag_list.join(', ')
   end
 
   def test_should_fail_to_create_with_invalid_data
     assert_no_difference('Image.count') do
-      image_params = { imageurl: 'abc.png' }
+      image_params = { imageurl: 'abc.png', tag_list: '' }
       post images_path, params: { image: image_params }
     end
 
@@ -56,10 +61,32 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_should_maintain_form_with_invalid_data
+    tag_list = 'a, b, c'
+    assert_no_difference('Image.count') do
+      image_params = { imageurl: 'abc.png', tag_list: tag_list }
+      post images_path, params: { image: image_params }
+    end
+
+    assert_response :ok
+    assert_select '.image_tag_list' do
+      assert_select 'input[value=?]', tag_list
+    end
+  end
+
   def test_should_show_image
     testimage = Image.create!(imageurl: 'http://abc.png')
     get image_path(id: testimage.id)
     assert_response :ok
     assert_select "img[src='http://abc.png']", count: 1
+    assert_select '.tags-list', count: 0 # no tags block
+  end
+
+  def test_should_show_image_with_tag
+    testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'abc')
+    get image_path(id: testimage.id)
+    assert_response :ok
+    assert_select "img[src='http://abc.png']", count: 1
+    assert_select '.tags-list', 'Tags: abc'
   end
 end

@@ -40,4 +40,15 @@ class ImageTest < ActiveSupport::TestCase
     url = Image.new(imageurl: 'http://abc.gif')
     assert_predicate url, :valid?
   end
+
+  def test_image_has_no_tags
+    img = Image.new(imageurl: 'http://abc.gif')
+    assert_empty img.tag_list
+  end
+
+  def test_image_initialized_with_tags
+    img = Image.new(imageurl: 'http://abc.gif', tag_list: 'a, b, c')
+    assert_not_empty img.tag_list
+    assert_equal 3, img.tag_list.count
+  end
 end
