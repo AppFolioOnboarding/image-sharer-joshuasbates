@@ -1,4 +1,16 @@
-<div class="container-fluid album">
+<section class="container-fluid btn-toolbar justify-content-center">
+  <div class="tags btn-group-sm" role="group" aria-label="Tags">
+    <button type="button" class="btn btn-outline-primary">
+      <%= link_to("All", images_path) %>
+    </button>
+    <% ActsAsTaggableOn::Tag.order(name: :asc).map(&:name).each do |tag_name| %>
+      <button type="button" class="btn btn-outline-secondary">
+        <%= link_to(tag_name, "?tag_name=#{tag_name}") %>
+      </button>
+    <% end %>
+  </div>
+</section>
+<section class="container-fluid album">
   <div class="row justify-content-center">
     <% @images.each do |image| %>
       <div class="card">
@@ -6,4 +18,4 @@
       </div>
     <% end %>
   </div>
-</div>
+</section>

@@ -1,3 +1,5 @@
+require 'images_for_tag_name'
+
 class ImagesController < ApplicationController
   def new
     @image = Image.new
@@ -14,7 +16,7 @@ class ImagesController < ApplicationController
   end
 
   def index
-    @images = Image.order(created_at: :desc)
+    @images = ImagesForTagName.images(params[:tag_name])
   end
 
   def show

@@ -6,6 +6,21 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
+  def test_should_order_tags_by_name
+    Image.create!(imageurl: 'http://abc.png', tag_list: 'c, d, b, a')
+    expected_names = %w[All a b c d]
+
+    get images_path
+    assert_response :ok
+    assert_select '.tags', count: 1 do
+      assert_select 'button', count: 5 do |buttons|
+        buttons.each_with_index do |button, index|
+          assert_select button, 'a', expected_names[index]
+        end
+      end
+    end
+  end
+
   def test_should_order_index_by_created_at
     images = [
       Image.create!(imageurl: 'http://abc.png', created_at: Time.zone.now),
@@ -27,7 +42,9 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   def test_index_should_not_have_entries_if_no_images
     get images_path
     assert_response :ok
-    assert_select 'table.image_table tr', count: 0
+    assert_select '.album', count: 1 do |_album|
+      assert_select '.card', count: 0
+    end
   end
 
   def test_should_get_new
@@ -35,7 +52,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
-  def test_should_create_employee
+  def test_should_create_image
     expected_url = 'http://abc.png'
     expected_tag_list = 'a, b, c'
     assert_difference('Image.count') do
@@ -87,6 +104,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     get image_path(id: testimage.id)
     assert_response :ok
     assert_select "img[src='http://abc.png']", count: 1
-    assert_select '.tags-list', 'Tags: abc'
+    assert_select '.tags-list', 'abc'
   end
 end
