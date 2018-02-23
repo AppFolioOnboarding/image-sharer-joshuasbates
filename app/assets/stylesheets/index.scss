@@ -7,22 +7,21 @@ $padding-height: .5rem;
 }
 
 .card {
+  align-items: center;
   border: 0;
   height: 20rem;
-  line-height: 19rem;
   margin: .5rem;
-  text-align: center;
   width: 20rem;
 
-  a {
-    height: 100%;
-    width: 100%;
-  }
-
   img {
-    max-height: 100%;
+    max-height: 17rem;
     max-width: 100%;
   }
+}
+
+.card-body {
+  margin: .5rem;
+  width: 100%;
 }
 
 .footer {
