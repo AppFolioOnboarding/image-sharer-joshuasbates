@@ -6,21 +6,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
-  def test_should_order_tags_by_name
-    Image.create!(imageurl: 'http://abc.png', tag_list: 'c, d, b, a')
-    expected_names = %w[All a b c d]
-
-    get images_path
-    assert_response :ok
-    assert_select '.tags', count: 1 do
-      assert_select 'button', count: 5 do |buttons|
-        buttons.each_with_index do |button, index|
-          assert_select button, 'a', expected_names[index]
-        end
-      end
-    end
-  end
-
   def test_should_order_index_by_created_at
     images = [
       Image.create!(imageurl: 'http://abc.png', created_at: Time.zone.now),
@@ -99,14 +84,23 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     get image_path(id: testimage.id)
     assert_response :ok
     assert_select "img[src='http://abc.png']", count: 1
-    assert_select '.tags-list', count: 0 # no tags block
+    assert_select '.js-card-tag', count: 0 # no tags block
   end
 
-  def test_should_show_image_with_tag
-    testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'abc')
+  def test_should_show_image_with_tags_alphabetically
+    testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'c, d, b, a')
+    expected_names = %w[a b c d]
+
     get image_path(id: testimage.id)
     assert_response :ok
     assert_select "img[src='http://abc.png']", count: 1
-    assert_select '.tags-list', 'abc'
+
+    assert_select '.js-tags-list', count: 1 do
+      assert_select 'a', count: 4 do |buttons|
+        buttons.each_with_index do |_button, index|
+          assert_select 'a', expected_names[index]
+        end
+      end
+    end
   end
 end

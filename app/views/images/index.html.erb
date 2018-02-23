@@ -1,20 +1,23 @@
 <section class="container-fluid btn-toolbar justify-content-center">
-  <div class="tags btn-group-sm" role="group" aria-label="Tags">
-    <button type="button" class="btn btn-outline-primary">
-      <%= link_to("All", images_path) %>
-    </button>
-    <% ActsAsTaggableOn::Tag.order(name: :asc).map(&:name).each do |tag_name| %>
-      <button type="button" class="btn btn-outline-secondary">
-        <%= link_to(tag_name, "?tag_name=#{tag_name}") %>
-      </button>
-    <% end %>
-  </div>
+  <% if params[:tag_name].present? %>
+    <span class="col-10 justify-content-start">
+      Filtering by:  <span class="badge badge-default"><%= params[:tag_name] %></span>
+    </span>
+    <span class="btn-group col-2 justify-content-end">
+      <%= link_to("Clear", images_path, :class=>"btn btn-primary btn-sm") %>
+    </span>
+  <% end %>
 </section>
 <section class="container-fluid album">
   <div class="row justify-content-center">
     <% @images.each do |image| %>
       <div class="card">
-        <%= link_to image_tag(image.imageurl, class: "card-img"), image_path(image) %>
+        <div class="card-img my-auto">
+          <%= link_to image_tag(image.imageurl), image_path(image), :class => "js-image-link" %>
+        </div>
+        <div class="card-body container">
+          <%= render partial: "shared/image_tags_and_actions", locals: {image: image} %>
+        </div>
       </div>
     <% end %>
   </div>

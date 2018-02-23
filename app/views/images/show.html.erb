@@ -1,12 +1,8 @@
 <div class="container-fluid">
   <% if @image.tag_list.present? %>
-    <p><strong>Tags: </strong>
-      <div class="tags-list">
-        <% @image.tag_list.each do |tag| %>
-          <span class="badge badge-default"><%= tag %></span>
-        <% end %>
-      </div>
-    </p>
+    Tags:
   <% end %>
+  <%= render partial: "shared/image_tags_and_actions", locals: {image: @image} %>
+  <br>
   <%= image_tag @image.imageurl, class: "img-fluid" %>
 </div>
