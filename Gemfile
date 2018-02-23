@@ -46,7 +46,7 @@ end
 group :test do
   gem 'ae_page_objects'
   gem 'capybara'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 2.53.4'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
