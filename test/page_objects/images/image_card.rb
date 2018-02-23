@@ -6,11 +6,11 @@ module PageObjects
       end
 
       def tags
-        #TODO
+        node.all('.js-card-tag').map(&:text)
       end
 
       def click_tag!(tag_name)
-        #TODO
+        node.click_on(tag_name)
       end
     end
   end

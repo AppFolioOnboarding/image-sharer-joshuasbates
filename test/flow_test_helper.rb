@@ -5,9 +5,7 @@ require 'capybara/rails'
 require 'capybara/dsl'
 require 'ae_page_objects'
 require 'ae_page_objects/rails'
-
-module PageObjects
-end
+require 'page_objects/document'
 
 Dir[File.dirname(__FILE__) + '/page_objects/**/*.rb'].each { |file| require file }
 
