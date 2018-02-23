@@ -62,6 +62,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     last_image = Image.last
     assert_redirected_to image_path(last_image)
+    assert_equal 'You have successfully added an image.', flash[:success]
+
     assert_equal expected_url, last_image.imageurl
     assert_equal expected_tag_list, last_image.tag_list.join(', ')
   end
@@ -73,6 +75,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :ok
+    assert_equal 'There was an error adding the image.', flash[:danger]
     assert_select '#new_image' do
       assert_select '.help-block', 'is invalid'
     end
