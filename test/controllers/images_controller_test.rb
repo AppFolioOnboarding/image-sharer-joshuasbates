@@ -87,6 +87,12 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select '.js-card-tag', count: 0 # no tags block
   end
 
+  def test_should_show_image_not_found
+    get image_path(id: '-1')
+    assert_redirected_to images_path
+    assert_equal 'Image was not found.', flash[:danger]
+  end
+
   def test_should_show_image_with_tags_alphabetically
     testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'c, d, b, a')
     expected_names = %w[a b c d]

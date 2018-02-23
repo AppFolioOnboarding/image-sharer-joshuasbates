@@ -1,6 +1,8 @@
 require 'images_for_tag_name'
 
 class ImagesController < ApplicationController
+  before_action :find_image, only: %i[show destroy]
+
   def new
     @image = Image.new
   end
@@ -18,7 +20,6 @@ class ImagesController < ApplicationController
   end
 
   def destroy
-    @image = Image.find(params[:id])
     @image.destroy
 
     flash[:success] = 'You have successfully deleted the image.'
@@ -29,11 +30,16 @@ class ImagesController < ApplicationController
     @images = ImagesForTagName.images(params[:tag_name])
   end
 
-  def show
-    @image = Image.find(params[:id])
-  end
+  def show; end
 
   private
+
+  def find_image
+    @image = Image.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    flash[:danger] = 'Image was not found.'
+    redirect_to images_path
+  end
 
   def image_params
     params.require(:image).permit(:imageurl, :tag_list)
