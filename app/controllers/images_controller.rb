@@ -17,6 +17,14 @@ class ImagesController < ApplicationController
     end
   end
 
+  def destroy
+    @image = Image.find(params[:id])
+    @image.destroy
+
+    flash[:success] = 'You have successfully deleted the image.'
+    redirect_to images_path
+  end
+
   def index
     @images = ImagesForTagName.images(params[:tag_name])
   end
