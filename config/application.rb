@@ -18,7 +18,7 @@ module Base
     csp_settings = [
       "connect-src 'self'",
       "default-src 'none'",
-      'font-src https://cdn.jsdelivr.net',
+      "font-src 'self' http: https:",
       "img-src 'self' http: https:",
       "script-src 'self' https://cdnjs.cloudflare.com https://code.jquery.com https://maxcdn.bootstrapcdn.com",
       "style-src 'self' https://maxcdn.bootstrapcdn.com"
