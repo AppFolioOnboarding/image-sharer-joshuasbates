@@ -30,6 +30,11 @@ module PageObjects
         node.click_on('Index')
         window.change_to(IndexPage)
       end
+
+      def share_image!
+        node.click_on('Share image')
+        window.change_to(ImageShares::NewPage)
+      end
     end
   end
 end

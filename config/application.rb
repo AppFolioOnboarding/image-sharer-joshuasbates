@@ -26,5 +26,7 @@ module Base
     config.action_dispatch.default_headers = {
       'Content-Security-Policy' => csp_settings.join(';')
     }
+    path_to = '**/' # workaround for rubocop style warning for next line
+    config.autoload_paths += Dir[Rails.root.join('lib', path_to)]
   end
 end

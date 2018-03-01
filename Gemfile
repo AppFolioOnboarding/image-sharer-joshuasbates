@@ -18,14 +18,15 @@ gem 'jquery-rails'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'acts-as-taggable-on', '~> 5.0'
-gem 'webpacker', '~> 3.0'
-
+gem 'figaro'
 gem 'simple_form', '~> 3.1'
+gem 'webpacker', '~> 3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
   # Use sqlite3 as the database for Active Record
+  gem 'mocha', '1.1.0', require: false
   gem 'sqlite3'
 end
 
