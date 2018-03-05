@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/ClassLength
+
 require 'test_helper'
 
 class ImagesControllerTest < ActionDispatch::IntegrationTest
@@ -108,5 +110,24 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
         end
       end
     end
+  end
+
+  def test_should_delete_image_with_flash_message
+    testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'c, b, a')
+
+    assert_difference('Image.count', -1) do
+      delete image_path(testimage)
+    end
+    assert_redirected_to images_path
+    assert_equal 'You have successfully deleted the image.', flash[:success]
+  end
+
+  def test_should_delete_image_fails
+    # Try deleting an image ID that does not exist
+    assert_difference('Image.count', 0) do
+      delete image_path(-1)
+    end
+    assert_redirected_to images_path
+    assert_equal 'Image was not found.', flash[:danger]
   end
 end
