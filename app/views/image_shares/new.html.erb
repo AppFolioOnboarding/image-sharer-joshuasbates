@@ -1,0 +1,9 @@
+<div class="container-fluid">
+  <%= simple_form_for @image, url: image_image_shares_path(@image), method: :post do |f| %>
+    <%= f.simple_fields_for :share do |share_form| %>
+      <%= share_form.input :email, as: :email, label: "Send to:"%>
+      <%= share_form.input :message, as: :text, label: "Message:", required: false %>
+    <% end %>
+    <%= f.button :submit, "Share", class: "btn-primary" %>
+  <% end %>
+</div>
