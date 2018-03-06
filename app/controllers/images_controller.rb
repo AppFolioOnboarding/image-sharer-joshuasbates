@@ -1,6 +1,8 @@
 require 'images_for_tag_name'
 
 class ImagesController < ApplicationController
+  include Images::ControllerHelper
+
   before_action :find_image, only: %i[show destroy]
 
   def new
@@ -35,10 +37,7 @@ class ImagesController < ApplicationController
   private
 
   def find_image
-    @image = Image.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:danger] = 'Image was not found.'
-    redirect_to images_path
+    @image = image_by_id(params[:id])
   end
 
   def image_params
