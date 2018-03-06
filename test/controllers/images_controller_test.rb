@@ -1,24 +1,11 @@
+# rubocop:disable Metrics/ClassLength
+
 require 'test_helper'
 
 class ImagesControllerTest < ActionDispatch::IntegrationTest
   def test_should_get_index
     get images_path
     assert_response :ok
-  end
-
-  def test_should_order_tags_by_name
-    Image.create!(imageurl: 'http://abc.png', tag_list: 'c, d, b, a')
-    expected_names = %w[All a b c d]
-
-    get images_path
-    assert_response :ok
-    assert_select '.tags', count: 1 do
-      assert_select 'button', count: 5 do |buttons|
-        buttons.each_with_index do |button, index|
-          assert_select button, 'a', expected_names[index]
-        end
-      end
-    end
   end
 
   def test_should_order_index_by_created_at
@@ -62,6 +49,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     last_image = Image.last
     assert_redirected_to image_path(last_image)
+    assert_equal 'You have successfully added an image.', flash[:success]
+
     assert_equal expected_url, last_image.imageurl
     assert_equal expected_tag_list, last_image.tag_list.join(', ')
   end
@@ -73,6 +62,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :ok
+    assert_equal 'There was an error adding the image.', flash[:danger]
     assert_select '#new_image' do
       assert_select '.help-block', 'is invalid'
     end
@@ -96,14 +86,48 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     get image_path(id: testimage.id)
     assert_response :ok
     assert_select "img[src='http://abc.png']", count: 1
-    assert_select '.tags-list', count: 0 # no tags block
+    assert_select '.js-card-tag', count: 0 # no tags block
   end
 
-  def test_should_show_image_with_tag
-    testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'abc')
+  def test_should_show_image_not_found
+    get image_path(id: '-1')
+    assert_redirected_to images_path
+    assert_equal 'Image was not found.', flash[:danger]
+  end
+
+  def test_should_show_image_with_tags_alphabetically
+    testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'c, d, b, a')
+    expected_names = %w[a b c d]
+
     get image_path(id: testimage.id)
     assert_response :ok
     assert_select "img[src='http://abc.png']", count: 1
-    assert_select '.tags-list', 'abc'
+
+    assert_select '.js-tags-list', count: 1 do
+      assert_select 'a', count: 4 do |buttons|
+        buttons.each_with_index do |_button, index|
+          assert_select 'a', expected_names[index]
+        end
+      end
+    end
+  end
+
+  def test_should_delete_image_with_flash_message
+    testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'c, b, a')
+
+    assert_difference('Image.count', -1) do
+      delete image_path(testimage)
+    end
+    assert_redirected_to images_path
+    assert_equal 'You have successfully deleted the image.', flash[:success]
+  end
+
+  def test_should_delete_image_fails
+    # Try deleting an image ID that does not exist
+    assert_difference('Image.count', 0) do
+      delete image_path(-1)
+    end
+    assert_redirected_to images_path
+    assert_equal 'Image was not found.', flash[:danger]
   end
 end
