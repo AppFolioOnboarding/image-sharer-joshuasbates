@@ -19,6 +19,7 @@ gem 'jquery-rails'
 
 gem 'acts-as-taggable-on', '~> 5.0'
 gem 'bootstrap', '~> 4.0.0'
+gem 'browserify-rails'
 gem 'figaro'
 gem 'simple_form', '~> 3.1'
 gem 'webpacker', '~> 3.0'
