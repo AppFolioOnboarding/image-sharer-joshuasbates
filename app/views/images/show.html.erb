@@ -1,8 +1,7 @@
 <div class="container-fluid">
-  <% if @image.tag_list.present? %>
-    Tags:
-  <% end %>
-  <%= render partial: "shared/image_tags_and_actions", locals: {image: @image} %>
+  <div class="border bg-light p-2">
+    <%= render partial: "shared/image_tags_and_actions", locals: {image: @image} %>
+  </div>
   <br>
   <%= image_tag @image.imageurl, class: "img-fluid" %>
 </div>
