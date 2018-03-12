@@ -17,16 +17,6 @@ class ImageSharesControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'You have successfully shared an image.', flash[:success]
   end
 
-  def test_should_fail_to_create_image_shares_with_invalid_email
-    image = Image.create!(imageurl: 'http://abc.png')
-    share_params = { share: { email: 'abc' } }
-
-    post image_image_shares_path(image), params: { image: share_params }
-
-    assert_redirected_to new_image_image_share_path(image)
-    assert_equal "You didn't give a valid email address", flash[:danger]
-  end
-
   def test_should_fail_to_create_image_shares_with_proto_error
     image = Image.create!(imageurl: 'http://abc.png')
     share_params = { share: { email: 'a@b.com' } }

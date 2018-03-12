@@ -18,7 +18,9 @@ class ImageSharesCrudTest < FlowTestCase
       email: 'abc',
       message: 'Hello World!'
     ).as_a(PageObjects::ImageShares::NewPage)
-    assert_equal "You didn't give a valid email address", new_image_shares_page.flash_message(:danger)
+
+    message = page.find('#image_share_email').native.attribute('validationMessage')
+    assert_equal 'Please enter an email address.', message
 
     new_image_shares_page.share_email.set('a@b.com')
     images_index_page = new_image_shares_page.create_share!.as_a(PageObjects::Images::IndexPage)

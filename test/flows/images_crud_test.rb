@@ -11,7 +11,9 @@ class ImagesCrudTest < FlowTestCase
       url: 'invalid',
       tags: tags.join(', ')
     ).as_a(PageObjects::Images::NewPage)
-    assert_equal 'is invalid', new_image_page.imageurl.error_message
+
+    message = page.find('#image_imageurl').native.attribute('validationMessage')
+    assert_equal 'Please enter a URL.', message
 
     image_url = 'https://media3.giphy.com/media/EldfH1VJdbrwY/200.gif'
     new_image_page.imageurl.set(image_url)
