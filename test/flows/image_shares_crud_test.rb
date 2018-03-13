@@ -12,18 +12,18 @@ class ImageSharesCrudTest < FlowTestCase
     image_to_share = images_index_page.images.first
     image_show_page = image_to_share.view!
 
-    new_image_shares_page = image_show_page.share_image!
+    image_shares_modal = image_show_page.share_image!
 
-    new_image_shares_page = new_image_shares_page.create_share!(
+    image_shares_modal = image_shares_modal.create_share!(
       email: 'abc',
       message: 'Hello World!'
-    ).as_a(PageObjects::ImageShares::NewPage)
+    )
 
     message = page.find('#image_share_email').native.attribute('validationMessage')
     assert_equal 'Please enter an email address.', message
 
-    new_image_shares_page.share_email.set('a@b.com')
-    images_index_page = new_image_shares_page.create_share!.as_a(PageObjects::Images::IndexPage)
+    image_shares_modal.share_email.set('a@b.com')
+    images_index_page = image_shares_modal.create_share!
     assert_equal 'You have successfully shared an image.', images_index_page.flash_message(:success)
   end
 end

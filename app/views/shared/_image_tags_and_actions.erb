@@ -5,13 +5,11 @@
     <% end %>
   </span>
   <span class="js-card-btn-group btn-group col-2 justify-content-end" role="group">
-    <%= button_to new_image_image_share_path(image),
-                  method: :get,
-                  class: "js-btn-share btn btn-outline-dark btn-sm mr-1",
-                  'data-toggle': 'tooltip',
-                  title: "Share image" do %>
-      <i class="fa fa-share-square-o"></i>
-    <% end %>
+    <span data-toggle="tooltip" title="Share image">
+      <button type="button" class="btn btn-outline-dark btn-sm ml-1" data-toggle="modal" data-target="#imageSharesModal" data-image-url=<%= image.imageurl %> data-action=<%= image_image_shares_path(image) %> title="Share image" >
+        <i class="fa fa-share-square-o"></i>
+      </button>
+    </span>
     <%= button_to image_path(image),
                   method: :delete,
                   data: { confirm: 'Are you sure you want to delete this image?' },

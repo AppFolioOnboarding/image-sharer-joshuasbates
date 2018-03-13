@@ -5,3 +5,8 @@
   <br>
   <%= image_tag @image.imageurl, class: "img-fluid" %>
 </div>
+
+<%= render partial: "shared/image_shares_modal", locals: {image: @image} %>
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'shared/image_shares/index' %>
+<% end %>

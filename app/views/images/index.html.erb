@@ -20,7 +20,12 @@
             <%= render partial: "shared/image_tags_and_actions", locals: {image: image} %>
           </div>
         </div>
+        <%= render partial: "shared/image_shares_modal", locals: {image: image} %>
       <% end %>
     </div>
   </div>
 </section>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'shared/image_shares/index' %>
+<% end %>
