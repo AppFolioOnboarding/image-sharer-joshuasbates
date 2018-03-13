@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'application/home'
 
   resources :images do
-    resources :image_shares, only: %i[create]
+    resources :image_shares, only: :create
   end
 
   root 'images#index'
