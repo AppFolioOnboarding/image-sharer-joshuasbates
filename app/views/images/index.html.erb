@@ -1,7 +1,7 @@
 <section class="container-fluid btn-toolbar justify-content-center">
   <% if params[:tag_name].present? %>
     <span class="col-10 justify-content-start">
-      Filtering by:  <span class="badge badge-default"><%= params[:tag_name] %></span>
+      Filtering by:  <span class="badge badge-secondary"><%= params[:tag_name] %></span>
     </span>
     <span class="btn-group col-2 justify-content-end">
       <%= link_to("Clear", images_path, :class=>"btn btn-primary btn-sm") %>
@@ -9,16 +9,23 @@
   <% end %>
 </section>
 <section class="container-fluid album">
-  <div class="row justify-content-center">
-    <% @images.each do |image| %>
-      <div class="card">
-        <div class="card-img my-auto">
-          <%= link_to image_tag(image.imageurl), image_path(image), :class => "js-image-link" %>
+  <div class="col">
+    <div class="row justify-content-center">
+      <% @images.each do |image| %>
+        <div class="card">
+          <div class="card-img-top m-auto text-center">
+            <%= link_to image_tag(image.imageurl), image_path(image), :class => "js-image-link" %>
+          </div>
+          <div class="card-footer text-left bg-light">
+            <%= render partial: "shared/image_tags_and_actions", locals: {image: image} %>
+          </div>
         </div>
-        <div class="card-body container">
-          <%= render partial: "shared/image_tags_and_actions", locals: {image: image} %>
-        </div>
-      </div>
-    <% end %>
+        <%= render partial: "shared/image_shares_modal", locals: {image: image} %>
+      <% end %>
+    </div>
   </div>
 </section>
+
+<% content_for :javascript do %>
+  <%= javascript_include_tag 'shared/image_shares/index' %>
+<% end %>

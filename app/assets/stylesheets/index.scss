@@ -7,19 +7,18 @@ $padding-height: .5rem;
 }
 
 .card {
-  align-items: center;
   border: 0;
   height: 20rem;
   margin: .5rem;
   width: 20rem;
 
   img {
-    max-height: 17rem;
+    max-height: 15rem;
     max-width: 100%;
   }
 }
 
-.card-body {
+.card-footer {
   width: 100%;
 }
 
