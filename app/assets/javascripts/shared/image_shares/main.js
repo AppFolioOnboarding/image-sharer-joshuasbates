@@ -8,10 +8,5 @@ jQuery(document).ready(function(e) {
     var action = button.data('action');
     $(this).find('form').attr("action", action);
   })
-
-  $("#image-shares-modal").bind('ajax:complete', function(data) {
-    $(this).modal('hide')
-    location.reload();
-  })
 });
 

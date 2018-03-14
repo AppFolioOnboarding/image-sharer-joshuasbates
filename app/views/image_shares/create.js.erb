@@ -1,0 +1,4 @@
+// app/views/image_shares/create.js.erb
+$("#image-shares-modal").modal('hide');
+$("#flash-notice").html('<%= escape_javascript(render "shared/flash") %>');
+<% flash.clear %>

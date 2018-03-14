@@ -17,7 +17,7 @@
               <%= share_form.input :email, as: :email, label: "Send to:" %>
               <%= share_form.input :message, as: :text, label: "Message:", required: false %>
             <% end %>
-            <%= f.button :submit, "Share", class: "btn-primary" %>
+            <%= f.button :submit, "Share", class: "btn-primary", data: { "disable-with": "Sending..." } %>
           <% end %>
         </div>
       </div>

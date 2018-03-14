@@ -20,7 +20,7 @@ module Base
       "default-src 'none'",
       "font-src 'self' http: https:",
       "img-src 'self' http: https:",
-      "script-src 'self' https://cdnjs.cloudflare.com https://code.jquery.com https://maxcdn.bootstrapcdn.com",
+      "script-src 'self' 'unsafe-eval' http: https:",
       "style-src 'self' https://maxcdn.bootstrapcdn.com"
     ]
     config.action_dispatch.default_headers = {

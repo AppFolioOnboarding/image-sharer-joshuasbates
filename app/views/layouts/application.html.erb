@@ -15,7 +15,9 @@
   </head>
   <body>
     <%= render "shared/navbar" %>
-    <%= render "shared/flash" %>
+    <div id="flash-notice">
+      <%= render "shared/flash" %>
+    </div>
     <%= yield %>
 
     <!-- Optional JavaScript -->
