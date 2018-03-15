@@ -22,7 +22,7 @@ Image.create!([
   { imageurl: 'https://49m1bo1nddcc2gx8sk220q1m-wpengine.netdna-ssl.com/wp-content/uploads/2016/09/Seemingly-Random-Events-850x479.jpg',
     tag_list: 'random' },
   { imageurl: 'http://img.xcitefun.net/users/2010/05/179319,xcitefun-random-fun-1.jpg',
-    tag_list: 'random' },
+    tag_list: '<unset>' },
   { imageurl: 'http://i0.kym-cdn.com/photos/images/original/000/988/134/9c0.jpg',
     tag_list: 'yoda, hulk, meme' },
   { imageurl: 'http://redlinebicycles.com/wp-content/uploads/2013/10/Random-black-F.jpg',

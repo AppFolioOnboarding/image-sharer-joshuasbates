@@ -9,7 +9,7 @@ class ImageMailerTest < ActionMailer::TestCase
 
   test 'invite' do
     # Create the email and store it for further assertions
-    image = Image.create!(imageurl: 'http://abc.png')
+    image = Image.create!(imageurl: 'http://abc.png', tag_list: 'test')
     message = 'Hi! You are receiving a message'
     email = ImageMailer.share_image_email(image, 'you@example.com', message)
 

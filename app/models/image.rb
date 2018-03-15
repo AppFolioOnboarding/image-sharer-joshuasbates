@@ -8,4 +8,5 @@ class Image < ApplicationRecord
   validates :imageurl,
             format: { with: /\.(gif|jpe?g|png)/i,
                       message: 'must have an image extension' }
+  validates :tag_list, presence: true
 end
