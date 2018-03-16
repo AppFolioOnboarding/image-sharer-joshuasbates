@@ -82,4 +82,36 @@ class ImagesCrudTest < FlowTestCase
     images_index_page = images_index_page.clear_tag_filter!
     assert_equal 3, images_index_page.images.count
   end
+
+  test 'edit image tags' do
+    image_url = 'http://ghk.h-cdn.co/assets/16/09/980x490/landscape-1457107485-gettyimages-512366437.jpg'
+    Image.create!(imageurl: image_url, tag_list: 'puppy, cute')
+
+    images_index_page = PageObjects::Images::IndexPage.visit
+    assert_equal 1, images_index_page.images.count
+    assert images_index_page.showing_image?(url: image_url)
+
+    image_to_edit = images_index_page.images.find do |image|
+      image.url == image_url
+    end
+
+    image_edit_page = image_to_edit.edit!
+
+    image_edit_page = image_edit_page.update_image!(
+      tags: '<unset>'
+    ).as_a(PageObjects::Images::EditPage)
+    assert_equal 'There was an error updating the image tags.', image_edit_page.flash_message(:danger)
+
+    tags = %w[puppy cute still]
+    image_edit_page.tag_list.set(tags.join(', '))
+
+    image_show_page = image_edit_page.update_image!
+    assert_equal 'You have successfully updated the image tags.', image_show_page.flash_message(:success)
+
+    assert_equal image_url, image_show_page.image_url
+    assert_equal tags, image_show_page.tags
+
+    images_index_page = image_show_page.go_back_to_index!
+    assert images_index_page.showing_image?(url: image_url, tags: tags)
+  end
 end

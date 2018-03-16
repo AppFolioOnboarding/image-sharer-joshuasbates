@@ -51,4 +51,14 @@ class ImageTest < ActiveSupport::TestCase
     assert_not_empty img.tag_list
     assert_equal 3, img.tag_list.count
   end
+
+  def test_image_can_not_have_more_than_5_tags
+    img = Image.new(imageurl: 'http://abc.gif', tag_list: '1, 2, 3, 4, 5, 6')
+    refute_predicate img, :valid?
+  end
+
+  def test_image_can_not_have_tag_longer_than_20_chars
+    img = Image.new(imageurl: 'http://abc.gif', tag_list: '012345678901234567890')
+    refute_predicate img, :valid?
+  end
 end

@@ -3,6 +3,10 @@ module PageObjects
     class ShowPage < PageObjects::Document
       path :image
 
+      is_loaded do
+        node.first('.js-show-page').present?
+      end
+
       def url?(url)
         node.find("img[src=\"#{url}\"]").present?
       end
@@ -34,6 +38,11 @@ module PageObjects
       def share_image!
         node.click_on('Share image')
         window.change_to(ImageShares::NewPage)
+      end
+
+      def edit_image!
+        node.click_on('Edit tags')
+        window.change_to(ShowPage)
       end
     end
   end

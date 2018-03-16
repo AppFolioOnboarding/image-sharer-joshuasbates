@@ -3,11 +3,13 @@ require 'images_for_tag_name'
 class ImagesController < ApplicationController
   include Images::ControllerHelper
 
-  before_action :find_image, only: %i[show destroy]
+  before_action :find_image, only: %i[edit update show destroy]
 
   def new
     @image = Image.new
   end
+
+  def edit; end
 
   def create
     @image = Image.new(image_params)
@@ -17,7 +19,17 @@ class ImagesController < ApplicationController
       redirect_to @image
     else
       flash.now[:danger] = 'There was an error adding the image.'
-      render 'new'
+      render :new
+    end
+  end
+
+  def update
+    if @image.update(image_params)
+      flash[:success] = 'You have successfully updated the image tags.'
+      redirect_to @image
+    else
+      flash.now[:danger] = 'There was an error updating the image tags.'
+      render :edit
     end
   end
 
