@@ -8,9 +8,10 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class ="justify-content-center">
-          <%= image_tag '', class: 'img-thumbnail' %>
+        <div class="text-center">
+          <%= image_tag '', class: 'img-thumbnail pre-scrollable' %>
         </div>
+        <hr>
         <div class="container-fluid">
           <%= simple_form_for image, remote: true, method: :post do |f| %>
             <%= f.simple_fields_for :share do |share_form| %>

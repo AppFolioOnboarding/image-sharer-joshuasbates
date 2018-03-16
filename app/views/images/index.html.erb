@@ -1,11 +1,14 @@
 <section class="container-fluid btn-toolbar justify-content-center">
-  <% if params[:tag_name].present? %>
-    <span class="col-10 justify-content-start">
-      Filtering by:  <span class="badge badge-secondary"><%= params[:tag_name] %></span>
-    </span>
-    <span class="btn-group col-2 justify-content-end">
-      <%= link_to("Clear", images_path, :class=>"btn btn-primary btn-sm") %>
-    </span>
+  <% tag = params[:tag_name] %>
+  <% if tag.present? %>
+    <div class="container row border bg-light p-2">
+      <span class="col-10 justify-content-start">
+        Filtering by:  <%= render partial: 'shared/tag_cloud', locals: { tag_list: [tag] } %>
+      </span>
+      <span class="btn-group col-2 justify-content-end">
+        <%= link_to("Clear", images_path, class: "btn btn-primary btn-sm") %>
+      </span>
+    </div>
   <% end %>
 </section>
 <section class="container-fluid album">
