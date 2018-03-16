@@ -10,9 +10,9 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   def test_should_order_index_by_created_at
     images = [
-      Image.create!(imageurl: 'http://abc.png', created_at: Time.zone.now),
-      Image.create!(imageurl: 'http://ghi.jpg', created_at: Time.zone.now - 1.day),
-      Image.create!(imageurl: 'http://def.jpg', created_at: Time.zone.now - 2.days)
+      Image.create!(imageurl: 'http://abc.png', created_at: Time.zone.now, tag_list: 'abc'),
+      Image.create!(imageurl: 'http://ghi.jpg', created_at: Time.zone.now - 1.day, tag_list: 'ghi'),
+      Image.create!(imageurl: 'http://def.jpg', created_at: Time.zone.now - 2.days, tag_list: 'def')
     ]
 
     get images_path
@@ -82,11 +82,11 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_should_show_image
-    testimage = Image.create!(imageurl: 'http://abc.png')
+    testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'test')
     get image_path(id: testimage.id)
     assert_response :ok
     assert_select "img[src='http://abc.png']", count: 1
-    assert_select '.js-card-tag', count: 0 # no tags block
+    assert_select '.js-card-tag', count: 1 # no tags block
   end
 
   def test_should_show_image_not_found

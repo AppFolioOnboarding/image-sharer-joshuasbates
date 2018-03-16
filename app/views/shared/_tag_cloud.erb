@@ -1,0 +1,4 @@
+<% tag_list.each do |tag| %>
+  <% badge_style = (tag == '<unset>') ? 'badge-danger' : 'badge-secondary' %>
+  <%= link_to(tag, "#{images_path}?tag_name=#{tag}", class: "js-card-tag badge #{badge_style}") %>
+<% end %>
