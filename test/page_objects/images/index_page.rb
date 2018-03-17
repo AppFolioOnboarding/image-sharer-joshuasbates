@@ -11,6 +11,11 @@ module PageObjects
           window.change_to(ShowPage)
         end
 
+        def edit!
+          node.find('.js-btn-edit').click
+          window.change_to(EditPage)
+        end
+
         def click_tag!(tag:)
           node.click_on(tag)
           window.change_to(IndexPage)

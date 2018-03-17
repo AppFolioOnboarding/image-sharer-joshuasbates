@@ -81,6 +81,29 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  def test_should_enable_editing
+    image = Image.create!(imageurl: 'http://abc.png', tag_list: 'abc')
+    get edit_image_path(image)
+    assert_response :ok
+  end
+
+  def test_should_fail_update_with_invalid_data
+    image = Image.create!(imageurl: 'http://abc.png', tag_list: 'abc')
+    image_params = { tag_list: '1,2,3,4,5,6' }
+    patch image_path(image), params: { image: image_params }
+    assert_equal 'There was an error updating the image tags.', flash[:danger]
+  end
+
+  def test_should_update_with_valid_data
+    image = Image.create!(imageurl: 'http://abc.png', tag_list: 'abc')
+    image_params = { tag_list: '1,2,3,4' }
+    patch image_path(image), params: { image: image_params }
+    assert_equal 'You have successfully updated the image tags.', flash[:success]
+
+    found_image = Image.find(image.id)
+    assert_equal '1, 2, 3, 4', found_image.tag_list.join(', ')
+  end
+
   def test_should_show_image
     testimage = Image.create!(imageurl: 'http://abc.png', tag_list: 'test')
     get image_path(id: testimage.id)

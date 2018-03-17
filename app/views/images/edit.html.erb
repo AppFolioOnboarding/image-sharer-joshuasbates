@@ -1,0 +1,11 @@
+<div class="container-fluid footer-padding js-edit-page">
+  <div class="border bg-light p-2">
+    <%= simple_form_for @image do |f| %>
+      <%= f.input :tag_list, as: :string, label: "Tags", input_html: { value: @image.tag_list.join(", ") } %>
+      <%= f.button :submit, "Update", class: "btn-primary" %>
+      <%= link_to "Cancel", @image, {class: "btn btn-secondary"} %>
+    <% end %>
+  </div>
+  <br>
+  <%= image_tag @image.imageurl, class: "img-fluid" %>
+</div>
